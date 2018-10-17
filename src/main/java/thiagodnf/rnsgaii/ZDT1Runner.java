@@ -52,10 +52,10 @@ public class ZDT1Runner extends AbstractRunner{
 	    MutationOperator<DoubleSolution> mutation = new PolynomialMutation(0.01, 20.0);
 	    SelectionOperator<List<DoubleSolution>, DoubleSolution> selection = new BinaryTournamentSelection<DoubleSolution>(new PreferenceDistanceComparator<>()) ;
 	    
-	    List<DoubleSolution> populationForNSGAII = runNSGAII(problem, populationSize, maxEvaluations, crossover, mutation, selection);
+	    //List<DoubleSolution> populationForNSGAII = runNSGAII(problem, populationSize, maxEvaluations, crossover, mutation, selection);
 	    List<DoubleSolution> populationForRNSGAII = runRNSGAII(problem, populationSize, maxEvaluations, crossover, mutation, selection, referencePoints, epsilon);
 	    
-	    datasets.add(new DataSet("NSGA-II", PointSolutionUtils.convert(populationForNSGAII)));
+	    //datasets.add(new DataSet("NSGA-II", PointSolutionUtils.convert(populationForNSGAII)));
 	    datasets.add(new DataSet("R-NSGA-II", PointSolutionUtils.convert(populationForRNSGAII)));
 	    
 	    
