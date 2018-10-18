@@ -1,4 +1,4 @@
-package test.thiagodnf.rnsgaii.util;
+package thiagodnf.rnsgaii.util.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -12,7 +12,7 @@ import org.uma.jmetal.util.point.PointSolution;
 import thiagodnf.rnsgaii.util.EuclideanDistanceUtils;
 import thiagodnf.rnsgaii.util.PointSolutionUtils;
 
-public class TestEuclideanDistanceUtils {
+public class EuclideanDistanceUtilsTest {
 
 	@Test
 	public void shouldThrowExceptionWhenInitiateThisClass() throws IllegalAccessException, InstantiationException {
