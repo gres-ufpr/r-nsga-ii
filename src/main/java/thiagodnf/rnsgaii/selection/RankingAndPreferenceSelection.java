@@ -1,7 +1,6 @@
 package thiagodnf.rnsgaii.selection;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -21,8 +20,6 @@ import com.google.common.base.Preconditions;
 
 import thiagodnf.rnsgaii.comparator.PreferenceDistanceComparator;
 import thiagodnf.rnsgaii.distance.PreferenceDistance;
-import thiagodnf.rnsgaii.gui.ScatterPlot;
-import thiagodnf.rnsgaii.util.Converter;
 import thiagodnf.rnsgaii.util.EuclideanDistanceUtils;
 import thiagodnf.rnsgaii.util.PointSolutionUtils;
 
@@ -60,27 +57,7 @@ public class RankingAndPreferenceSelection<S extends Solution<?>> extends Rankin
 		Ranking<S> ranking = new DominanceRanking<S>(dominanceComparator);
 		ranking.computeRanking(solutionList);
 
-		List<S> output = preferenceDistanceSelection(solutionList, ranking);
-		
-//		System.out.println("--------");
-//		for(S s : output) {
-//			
-//			System.out.println(Arrays.toString(s.getObjectives()));
-//			
-//		}
-//		
-		
-//		ScatterPlot.show(output);
-//		
-//		try {
-//			Thread.sleep(500);
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		
-				
-		return output;
+		return preferenceDistanceSelection(solutionList, ranking);
 	}
 	
 	protected List<S> preferenceDistanceSelection(List<S> solutionList, Ranking<S> ranking) {
@@ -107,10 +84,6 @@ public class RankingAndPreferenceSelection<S extends Solution<?>> extends Rankin
 		//calculate  preference  distance  of  each  fronts' individual using nitching strategy specified in Fig. 2
 		preferenceDistance.computeDensityEstimator(solutionList);
 		
-		//solutionList = clearEpsilon(solutionList, fmin, fmax);
-		
-//		System.out.println(Converter.print(solutionList));
-		
 		List<S> population = new ArrayList<>(solutionsToSelect);
 		
 		int rankingIndex = 0;
@@ -125,18 +98,23 @@ public class RankingAndPreferenceSelection<S extends Solution<?>> extends Rankin
 			}
 		}
 		
-		
-		
-//		System.out.println("---before clearEpsilon---");
-//		System.out.println(Converter.print(population));
-		
-		//population = clearEpsilon(population, fmin, fmax);
-		
-		
-//		System.out.println("------");
-//		System.out.println(Converter.print(population));
-		
 		return population;
+	}
+	
+	protected void addLastRankedSolutionsToPopulation(Ranking<S> ranking, int rank, List<S> population, double[] fmin, double[] fmax) {
+		
+		List<S> currentRankedFront = ranking.getSubfront(rank);
+		
+		currentRankedFront = clearEpsilon(currentRankedFront, fmin, fmax);
+
+		Collections.sort(currentRankedFront, new PreferenceDistanceComparator<S>());
+
+		int i = 0;
+		
+		while (population.size() < solutionsToSelect) {
+			population.add(currentRankedFront.get(i));
+			i++;
+		}
 	}
 	
 	protected List<S> clearEpsilon(List<S> population, double[] fmin, double[] fmax) {
@@ -156,36 +134,20 @@ public class RankingAndPreferenceSelection<S extends Solution<?>> extends Rankin
 			
 			PointSolution p = PointSolutionUtils.createSolution(randomSolution.getObjectives());
 			
-			
 			List<S> group = new ArrayList<>();
-			
-			
+
 			for (int i = 0; i < temporalList.size(); i++) {
-				
+
 				PointSolution q = PointSolutionUtils.createSolution(temporalList.get(i).getObjectives());
-				
+
 				double sum = EuclideanDistanceUtils.calculate(p, q, fmin, fmax);
-				
+
 				if (sum <= epsilon) {
 					group.add(temporalList.get(i));
 				}
-				
-//				PointSolution q = PointSolutionUtils.createSolution(temporalList.get(i).getObjectives());
-//				
-//				double sum = EuclideanDistanceUtils.calculate(p, q, fmin, fmax);
-//				
-//				if (sum <= epsilon) {
-//					temporalList.get(i).setAttribute(PreferenceDistance.KEY, Integer.MAX_VALUE);
-//					nextPopulation.add(temporalList.get(i));
-//					temporalList.remove(i);
-//				}
-				
-				
-				
-				//System.out.println(sum);
 			}
-			
-			for(S s : group) {
+
+			for (S s : group) {
 				s.setAttribute(PreferenceDistance.KEY, Integer.MAX_VALUE);
 				nextPopulation.add(s);
 				temporalList.remove(s);
@@ -193,21 +155,5 @@ public class RankingAndPreferenceSelection<S extends Solution<?>> extends Rankin
 		}
 		
 		return nextPopulation;
-	}
-
-	protected void addLastRankedSolutionsToPopulation(Ranking<S> ranking, int rank, List<S> population, double[] fmin, double[] fmax) {
-		
-		List<S> currentRankedFront = ranking.getSubfront(rank);
-		
-		currentRankedFront = clearEpsilon(currentRankedFront, fmin, fmax);
-
-		Collections.sort(currentRankedFront, new PreferenceDistanceComparator<S>());
-
-		int i = 0;
-		
-		while (population.size() < solutionsToSelect) {
-			population.add(currentRankedFront.get(i));
-			i++;
-		}
 	}
 }

@@ -17,7 +17,7 @@ import thiagodnf.rnsgaii.algorithm.RNSGAII;
 public abstract class AbstractRunner {
 
 	
-	public static<S extends Solution<?>> List<S> runNSGAII(
+	public<S extends Solution<?>> List<S> runNSGAII(
 			Problem<S> problem, 
 			int populationSize, 
 			int maxEvaluations, 
@@ -65,4 +65,6 @@ public abstract class AbstractRunner {
 		
 	   return algorithm.getResult() ;
 	}
+	
+	public abstract void run();
 }

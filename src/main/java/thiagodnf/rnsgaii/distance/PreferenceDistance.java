@@ -12,7 +12,7 @@ import org.uma.jmetal.util.solutionattribute.impl.GenericSolutionAttribute;
 
 import com.google.common.base.Preconditions;
 
-import thiagodnf.rnsgaii.comparator.DistanceToReferencePointComparator;
+import thiagodnf.rnsgaii.comparator.DistanceToRPComparator;
 import thiagodnf.rnsgaii.util.EuclideanDistanceUtils;
 import thiagodnf.rnsgaii.util.PointSolutionUtils;
 
@@ -34,6 +34,8 @@ public class PreferenceDistance<S extends Solution<?>> extends GenericSolutionAt
 		Preconditions.checkNotNull(fmin, "The fmax should not be null");
 		Preconditions.checkNotNull(referencePoints, "The reference point list should not be null");
 		Preconditions.checkArgument(!referencePoints.isEmpty(), "The reference point list should not be empty");
+		Preconditions.checkArgument(fmin.length >= 2, "The fmin length should be >= 2");
+		Preconditions.checkArgument(fmax.length >= 2, "The fmax length should be >= 2");
 		
 		this.referencePoints = referencePoints;
 		this.fmin = fmin;
@@ -42,6 +44,9 @@ public class PreferenceDistance<S extends Solution<?>> extends GenericSolutionAt
 
 	@Override
 	public void computeDensityEstimator(List<S> solutionSet) {
+		
+		Preconditions.checkNotNull(solutionSet, "The solution set should not be null");
+		Preconditions.checkArgument(!solutionSet.isEmpty(), "The solution set should not be empty");
 		
 		for (int i = 0; i < referencePoints.size(); i++) {
 
@@ -53,10 +58,10 @@ public class PreferenceDistance<S extends Solution<?>> extends GenericSolutionAt
 				
 				double distance = EuclideanDistanceUtils.calculate(x, r, fmin, fmax);
 				
-				s.setAttribute(DistanceToReferencePointComparator.KEY + i, distance);
+				s.setAttribute(DistanceToRPComparator.KEY + i, distance);
 			}
 			
-			Collections.sort(solutionSet, new DistanceToReferencePointComparator<S>(i));
+			Collections.sort(solutionSet, new DistanceToRPComparator<S>(i));
 			
 			Map<Double, Integer> positions = new HashMap<>();
 			
@@ -64,7 +69,7 @@ public class PreferenceDistance<S extends Solution<?>> extends GenericSolutionAt
 			
 			for (S s : solutionSet) {
 
-				double  value = (double) s.getAttribute(DistanceToReferencePointComparator.KEY + i);
+				double  value = (double) s.getAttribute(DistanceToRPComparator.KEY + i);
 				
 				if(!positions.containsKey(value)) {
 					positions.put(value, rankingPos++);
@@ -73,7 +78,7 @@ public class PreferenceDistance<S extends Solution<?>> extends GenericSolutionAt
 			
 			for (S s : solutionSet) {
 				
-				double value = (double) s.getAttribute(DistanceToReferencePointComparator.KEY + i);
+				double value = (double) s.getAttribute(DistanceToRPComparator.KEY + i);
 				
 				int pos = positions.get(value);
 				

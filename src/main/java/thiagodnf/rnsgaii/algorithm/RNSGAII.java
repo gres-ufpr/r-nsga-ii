@@ -14,9 +14,7 @@ import org.uma.jmetal.util.point.PointSolution;
 
 import com.google.common.base.Preconditions;
 
-import thiagodnf.rnsgaii.gui.ScatterPlot;
 import thiagodnf.rnsgaii.selection.RankingAndPreferenceSelection;
-import thiagodnf.rnsgaii.util.Converter;
 
 public class RNSGAII<S extends Solution<?>> extends NSGAII<S>{
 
@@ -25,8 +23,6 @@ public class RNSGAII<S extends Solution<?>> extends NSGAII<S>{
 	private double epsilon;
 	
 	private List<PointSolution> referencePoints;
-	
-	private int generation = 0;
 	
 	public RNSGAII(
 			Problem<S> problem, 
@@ -56,36 +52,13 @@ public class RNSGAII<S extends Solution<?>> extends NSGAII<S>{
 	@Override
 	protected List<S> replacement(List<S> population, List<S> offspringPopulation) {
 
-		generation++;
-		
 		List<S> jointPopulation = new ArrayList<>();
 
 		jointPopulation.addAll(population);
 		jointPopulation.addAll(offspringPopulation);
-		
-		
 
 		int solutionToSelect = getMaxPopulationSize();
-
-		System.out.println(generation);
 		
 		return new RankingAndPreferenceSelection<S>(referencePoints, epsilon, solutionToSelect).execute(jointPopulation);
 	}
-	
-	@Override
-	protected List<S> selection(List<S> population) {
-		
-		List<S> matingPopulation = new ArrayList<>(population.size());
-		
-		for (int i = 0; i < getMaxPopulationSize(); i++) {
-			S solution = selectionOperator.execute(population);
-			matingPopulation.add(solution);
-		}
-		
-//		System.out.println(Converter.print(matingPopulation));
-
-		return matingPopulation;
-	}
-	
-
 }

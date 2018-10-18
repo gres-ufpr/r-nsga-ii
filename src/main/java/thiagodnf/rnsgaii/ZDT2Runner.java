@@ -12,8 +12,6 @@ import org.uma.jmetal.operator.impl.selection.BinaryTournamentSelection;
 import org.uma.jmetal.problem.DoubleProblem;
 import org.uma.jmetal.problem.multiobjective.zdt.ZDT2;
 import org.uma.jmetal.solution.DoubleSolution;
-import org.uma.jmetal.util.fileoutput.SolutionListOutput;
-import org.uma.jmetal.util.fileoutput.impl.DefaultFileOutputContext;
 import org.uma.jmetal.util.point.PointSolution;
 
 import thiagodnf.rnsgaii.comparator.PreferenceDistanceComparator;
@@ -26,6 +24,10 @@ public class ZDT2Runner extends AbstractRunner{
 	public static boolean gui = true;
 	
 	public static void main(String[] args) {
+		new ZDT2Runner().run();
+	}
+	
+	public void run() {
 		
 		System.out.println("Running "+ZDT2Runner.class.getSimpleName());
 		
@@ -41,23 +43,21 @@ public class ZDT2Runner extends AbstractRunner{
 		
 		datasets.add(new DataSet("Reference Points", referencePoints));
 		
-		double epsilon = 0.001;
+		double epsilon = 0.005;
 		
 		int populationSize = 100;
-		int maxEvaluations = 500 * populationSize;
+		int maxEvaluations = 100000 * populationSize;
 		
 		CrossoverOperator<DoubleSolution> crossover = new SBXCrossover(0.9, 10.0);
 	    MutationOperator<DoubleSolution> mutation = new PolynomialMutation(0.01, 20.0);
 	    SelectionOperator<List<DoubleSolution>, DoubleSolution> selection = new BinaryTournamentSelection<DoubleSolution>(new PreferenceDistanceComparator<>()) ;
 	    
-	    List<DoubleSolution> populationForNSGAII = runNSGAII(problem, populationSize, maxEvaluations, crossover, mutation, selection);
 	    List<DoubleSolution> populationForRNSGAII = runRNSGAII(problem, populationSize, maxEvaluations, crossover, mutation, selection, referencePoints, epsilon);
 	    
-	    datasets.add(new DataSet("NSGA-II", PointSolutionUtils.convert(populationForNSGAII)));
-	    datasets.add(new DataSet("R-NSGA-II", PointSolutionUtils.convert(populationForRNSGAII)));
+	    datasets.add(new DataSet("R-NSGA-II w/ Epsilon="+epsilon, PointSolutionUtils.convert(populationForRNSGAII)));
 	    
 	 	if (gui) {
-			ScatterPlot.show(datasets, new double[] {0.0,1.0}, new double[] {0.0,1.0});
+			ScatterPlot.show(datasets, new double[] {0.0,1.1}, new double[] {0.0,1.1});
 		}
 	    
 		System.out.println("Done");

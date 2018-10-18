@@ -4,13 +4,13 @@ import java.util.Comparator;
 
 import org.uma.jmetal.solution.Solution;
 
-public class DistanceToReferencePointComparator<S extends Solution<?>> implements Comparator<S> {
+public class DistanceToRPComparator<S extends Solution<?>> implements Comparator<S> {
 
 	private int rpIndex;
 	
 	public final static String KEY = "distance_to_rp_";
 
-	public DistanceToReferencePointComparator(int rpIndex) {
+	public DistanceToRPComparator(int rpIndex) {
 		this.rpIndex = rpIndex;
 	}
 

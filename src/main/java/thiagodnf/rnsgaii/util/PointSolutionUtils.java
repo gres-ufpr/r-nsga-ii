@@ -24,7 +24,9 @@ public class PointSolutionUtils {
 	}
 
 	public static <S extends Solution<?>> List<PointSolution> convert(List<S> population) {
-
+		
+		Preconditions.checkNotNull(population, "The population should not be null");
+		
 		List<PointSolution> points = new ArrayList<>();
 
 		for (S s : population) {

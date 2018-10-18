@@ -69,7 +69,7 @@ public class ScatterPlot extends JFrame {
 			
 			ScatterPlot example = new ScatterPlot(datasets, xRange, yRange);
 			
-			example.setSize(800, 400);
+			example.setSize(400, 400);
 			example.setLocationRelativeTo(null);
 			example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			example.setVisible(true);
