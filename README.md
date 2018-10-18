@@ -1,3 +1,6 @@
+# R-NSGA-II
+
+R-NSGA-II or Reference Point Based NSGA-II proposed by Kalyanmoy Deb et al.
 
 ### Status
 [![Build Status](https://travis-ci.org/thiagodnf/r-nsga-ii.svg?branch=master)](https://travis-ci.org/thiagodnf/r-nsga-ii)
