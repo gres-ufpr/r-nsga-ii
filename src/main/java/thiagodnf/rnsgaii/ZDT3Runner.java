@@ -43,10 +43,10 @@ public class ZDT3Runner extends AbstractRunner {
 
 		datasets.add(new DataSet("Reference Points", referencePoints));
 
-		double epsilon = 0.005;
+		double epsilon = 0.0001;
 
 		int populationSize = 100;
-		int maxEvaluations = 100000 * populationSize;
+		int maxEvaluations = 500 * populationSize;
 
 		CrossoverOperator<DoubleSolution> crossover = new SBXCrossover(0.9, 10.0);
 		MutationOperator<DoubleSolution> mutation = new PolynomialMutation(0.01, 20.0);

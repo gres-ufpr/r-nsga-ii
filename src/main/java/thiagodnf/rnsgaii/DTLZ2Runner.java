@@ -46,7 +46,7 @@ public class DTLZ2Runner extends AbstractRunner {
 		double epsilon = 0.001;
 
 		int populationSize = 500;
-		int maxEvaluations = 1000 * populationSize;
+		int maxEvaluations = 500 * populationSize;
 
 		CrossoverOperator<DoubleSolution> crossover = new SBXCrossover(0.9, 10.0);
 		MutationOperator<DoubleSolution> mutation = new PolynomialMutation(0.01, 20.0);
