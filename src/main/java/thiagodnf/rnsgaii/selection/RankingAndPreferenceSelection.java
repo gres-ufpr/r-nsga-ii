@@ -84,6 +84,8 @@ public class RankingAndPreferenceSelection<S extends Solution<?>> extends Rankin
 		//calculate  preference  distance  of  each  fronts' individual using nitching strategy specified in Fig. 2
 		preferenceDistance.computeDensityEstimator(solutionList);
 		
+		solutionList = clearEpsilon(solutionList, fmin, fmax);
+		
 		List<S> population = new ArrayList<>(solutionsToSelect);
 		
 		int rankingIndex = 0;
@@ -105,7 +107,7 @@ public class RankingAndPreferenceSelection<S extends Solution<?>> extends Rankin
 		
 		List<S> currentRankedFront = ranking.getSubfront(rank);
 		
-		currentRankedFront = clearEpsilon(currentRankedFront, fmin, fmax);
+		//currentRankedFront = clearEpsilon(currentRankedFront, fmin, fmax);
 
 		Collections.sort(currentRankedFront, new PreferenceDistanceComparator<S>());
 

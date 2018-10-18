@@ -1,6 +1,8 @@
 package thiagodnf.rnsgaii.gui;
 
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -15,7 +17,11 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
+import org.uma.jmetal.solution.Solution;
+import org.uma.jmetal.util.comparator.ObjectiveComparator;
 import org.uma.jmetal.util.point.PointSolution;
+
+import thiagodnf.rnsgaii.util.PointSolutionUtils;
 
 public class ScatterPlot extends JFrame {
 
@@ -74,5 +80,29 @@ public class ScatterPlot extends JFrame {
 			example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			example.setVisible(true);
 		});
+	}
+	
+	public static<S extends Solution<?>> void show(List<S> solutionList) {
+		
+		int numberOfObjectives = solutionList.get(0).getNumberOfObjectives();
+		
+		double[] fmin = new double[numberOfObjectives];
+		double[] fmax = new double[numberOfObjectives];
+
+		for (int i = 0; i < numberOfObjectives; i++) {
+
+			Collections.sort(solutionList, new ObjectiveComparator<Solution<?>>(i));
+
+			fmin[i] = solutionList.get(0).getObjective(i);
+			fmax[i] = solutionList.get(solutionList.size() - 1).getObjective(i);
+		}
+		
+		List<DataSet> datasets = new ArrayList<>();
+		
+		List<PointSolution> points = PointSolutionUtils.convert(solutionList);
+		
+		datasets.add(new DataSet("General", points));
+		
+		show(datasets, fmin, fmax);
 	}
 }
