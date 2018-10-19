@@ -18,14 +18,14 @@ The following results were found based on the following parameter settings.
 **For Binary Problem**
 
  - populationSize = 100;
- - maxEvaluations = 100000 * populationSize;
+ - maxEvaluations = 10000 * populationSize;
  - SinglePointCrossover(0.9)
  - BitFlipMutation(0.001)
  
  **For Double Problem**
 
  - populationSize = 100;
- - maxEvaluations = 100000 * populationSize;
+ - maxEvaluations = 10000 * populationSize;
  - SBXCrossover(0.9, 10.0)
  - PolynomialMutation(0.01, 20.0)
 
