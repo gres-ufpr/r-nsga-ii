@@ -82,7 +82,7 @@ public class ScatterPlot extends JFrame {
 		});
 	}
 	
-	public static<S extends Solution<?>> void show(List<S> solutionList) {
+	public static<S extends Solution<?>> void show(List<PointSolution> referencePoints, List<S> solutionList) {
 		
 		int numberOfObjectives = solutionList.get(0).getNumberOfObjectives();
 		
@@ -99,9 +99,11 @@ public class ScatterPlot extends JFrame {
 		
 		List<DataSet> datasets = new ArrayList<>();
 		
-		List<PointSolution> points = PointSolutionUtils.convert(solutionList);
+		datasets.add(new DataSet("Reference Points", PointSolutionUtils.convert(referencePoints)));
+		datasets.add(new DataSet("General", PointSolutionUtils.convert(solutionList)));
 		
-		datasets.add(new DataSet("General", points));
+		fmin = new double[] {-0.1, 1.1};
+		fmax = new double[] {-0.1, 1.1};
 		
 		show(datasets, fmin, fmax);
 	}

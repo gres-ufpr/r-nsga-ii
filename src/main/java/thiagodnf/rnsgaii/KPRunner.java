@@ -42,7 +42,7 @@ public class KPRunner extends AbstractRunner{
 		
 		datasets.add(new DataSet("Reference Points", referencePoints));
 		
-		double epsilon = 0.05;
+		double epsilon = 0.0001;
 		
 		int populationSize = 100;
 		int maxEvaluations = 10000 * populationSize;
