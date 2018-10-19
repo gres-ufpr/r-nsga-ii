@@ -28,10 +28,10 @@ The following results were found based on the following parameter settings.
  - maxEvaluations = 100000 * populationSize;
  - SBXCrossover(0.9, 10.0)
  - PolynomialMutation(0.01, 20.0)
- 
+
 **Results**
 		
-| Problem  | Encoding | 0.01 | 0.001 | 0.0001 |
+| Problem  | Encoding |  &epsilon; = 0.01 | &epsilon; = 0.001 | &epsilon; =0.0001 |
 | ------------- | --- | ------------- |----------- | --------- |
 | Knapsack  | Binary Solution | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/kp/r-nsga-ii-0.01.png">  | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/kp/r-nsga-ii-0.001.png"> | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/kp/r-nsga-ii-1.0E-5.png"> |
 | ZDT 1  | Double Solution | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/zdt1/r-nsga-ii-0.01.png">  | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/zdt1/r-nsga-ii-0.001.png"> | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/zdt1/r-nsga-ii-1.0E-5.png"> |
