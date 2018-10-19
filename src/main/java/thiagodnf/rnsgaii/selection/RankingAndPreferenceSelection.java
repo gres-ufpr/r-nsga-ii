@@ -1,7 +1,6 @@
 package thiagodnf.rnsgaii.selection;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -21,7 +20,6 @@ import com.google.common.base.Preconditions;
 
 import thiagodnf.rnsgaii.comparator.PreferenceDistanceComparator;
 import thiagodnf.rnsgaii.distance.PreferenceDistance;
-import thiagodnf.rnsgaii.gui.ScatterPlot;
 import thiagodnf.rnsgaii.util.EuclideanDistanceUtils;
 import thiagodnf.rnsgaii.util.PointSolutionUtils;
 
@@ -109,29 +107,13 @@ public class RankingAndPreferenceSelection<S extends Solution<?>> extends Rankin
 		
 		List<S> currentRankedFront = ranking.getSubfront(rank);
 		
-		if(rank == 0) {
-			ScatterPlot.show(referencePoints, currentRankedFront);
-		}
-		
-		//currentRankedFront = clearEpsilon(currentRankedFront, fmin, fmax);
-
 		Collections.sort(currentRankedFront, new PreferenceDistanceComparator<S>());
-
-		System.out.println("--------");
-		for(S s : currentRankedFront) {
-			System.out.println(Arrays.toString(s.getObjectives())+", "+s.getAttribute(PreferenceDistance.KEY));
-		}
-		
 		
 		int i = 0;
 		
 		while (population.size() < solutionsToSelect) {
 			population.add(currentRankedFront.get(i));
 			i++;
-		}
-		
-		if(rank == 0) {
-			ScatterPlot.show(referencePoints, population);
 		}
 	}
 	

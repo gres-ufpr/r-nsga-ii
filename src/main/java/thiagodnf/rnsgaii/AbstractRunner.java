@@ -13,6 +13,7 @@ import org.uma.jmetal.util.evaluator.impl.SequentialSolutionListEvaluator;
 import org.uma.jmetal.util.point.PointSolution;
 
 import thiagodnf.rnsgaii.algorithm.RNSGAII;
+import thiagodnf.rnsgaii.gui.DataSet;
 
 public abstract class AbstractRunner {
 
@@ -66,5 +67,7 @@ public abstract class AbstractRunner {
 	   return algorithm.getResult() ;
 	}
 	
-	public abstract void run();
+	public List<DataSet> run(List<PointSolution> referencePoints, double epsilon) {
+		return null;
+	}
 }

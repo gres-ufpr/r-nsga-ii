@@ -21,32 +21,31 @@ import thiagodnf.rnsgaii.util.PointSolutionUtils;
 
 public class ZDT3Runner extends AbstractRunner {
 
-	public static boolean gui = true;
-
 	public static void main(String[] args) {
-		new ZDT3Runner().run();
-	}
-	
-	public void run() {
-
-		System.out.println("Running " + ZDT3Runner.class.getSimpleName());
-
-		List<DataSet> datasets = new ArrayList<>();
-
-		DoubleProblem problem = new ZDT3(30);
-
+		
 		List<PointSolution> referencePoints = new ArrayList<>();
 
 		referencePoints.add(PointSolutionUtils.createSolution(0.1, 0.6));
 		referencePoints.add(PointSolutionUtils.createSolution(0.35, 0.2));
 		referencePoints.add(PointSolutionUtils.createSolution(0.7, -0.3));
+		
+		List<DataSet> datasets = new ZDT3Runner().run(referencePoints, 0.0001);
+		
+		ScatterPlot.show(datasets, new double[] {0.0, 1.0}, new double[] {-1.0, 1.0});
+	}
+	
+	public List<DataSet> run(List<PointSolution> referencePoints, double epsilon) {
+
+		System.out.println("Running " + ZDT3Runner.class.getSimpleName() + " w/ " + epsilon);
+
+		List<DataSet> datasets = new ArrayList<>();
+
+		DoubleProblem problem = new ZDT3(30);
 
 		datasets.add(new DataSet("Reference Points", referencePoints));
 
-		double epsilon = 0.0001;
-
 		int populationSize = 100;
-		int maxEvaluations = 500 * populationSize;
+		int maxEvaluations = 10000 * populationSize;
 
 		CrossoverOperator<DoubleSolution> crossover = new SBXCrossover(0.9, 10.0);
 		MutationOperator<DoubleSolution> mutation = new PolynomialMutation(0.01, 20.0);
@@ -56,10 +55,8 @@ public class ZDT3Runner extends AbstractRunner {
 		    
 		datasets.add(new DataSet("R-NSGA-II w/ Epsilon="+epsilon, PointSolutionUtils.convert(populationForRNSGAII)));
 
-		if (gui) {
-			ScatterPlot.show(datasets, new double[] { 0.0, 1.0 }, new double[] { -1.0, 1.0 });
-		}
-
 		System.out.println("Done");
+		
+		return datasets;
 	}
 }

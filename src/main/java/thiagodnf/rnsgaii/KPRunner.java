@@ -21,28 +21,27 @@ import thiagodnf.rnsgaii.util.PointSolutionUtils;
 
 public class KPRunner extends AbstractRunner{
 	
-	public static boolean gui = true;
-	
 	public static void main(String[] args) {
-		new KPRunner().run();
+		
+		List<PointSolution> referencePoints = new ArrayList<>();
+
+		referencePoints.add(PointSolutionUtils.createSolution(0.8, 0.3));
+		referencePoints.add(PointSolutionUtils.createSolution(0.1, 0.8));
+		
+		List<DataSet> datasets = new KPRunner().run(referencePoints, 0.0001);
+		
+		ScatterPlot.show(datasets, new double[] {-0.1,1.1}, new double[] {-0.1, 1.1});
 	}
 	
-	public void run() {
-		
-		System.out.println("Running "+KPRunner.class.getSimpleName());
+	public List<DataSet> run(List<PointSolution> referencePoints, double epsilon) {
+
+		System.out.println("Running " + KPRunner.class.getSimpleName() + " w/ " + epsilon);
 		
 		List<DataSet> datasets = new ArrayList<>();
 		
-		BinaryProblem problem = new KnapsackProblem("src/main/resources/kp/p01.kp");
+		BinaryProblem problem = new KnapsackProblem("src/main/resources/kp/p50.kp");
 
-		List<PointSolution> referencePoints = new ArrayList<>();
-
-		referencePoints.add(PointSolutionUtils.createSolution(0.6, 0.1));
-		referencePoints.add(PointSolutionUtils.createSolution(0.1, 0.8));
-		
 		datasets.add(new DataSet("Reference Points", referencePoints));
-		
-		double epsilon = 0.0001;
 		
 		int populationSize = 100;
 		int maxEvaluations = 10000 * populationSize;
@@ -55,10 +54,8 @@ public class KPRunner extends AbstractRunner{
 	    
 	    datasets.add(new DataSet("R-NSGA-II w/ Epsilon=" + epsilon, PointSolutionUtils.convert(populationForRNSGAII)));
 	    
-	    if (gui) {
-			ScatterPlot.show(datasets, new double[] {-0.1,1.1}, new double[] {-0.1, 1.1});
-		}
+	    System.out.println("Done");
 	    
-		System.out.println("Done");
+	    return datasets;
 	}
 }

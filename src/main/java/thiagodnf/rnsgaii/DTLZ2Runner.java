@@ -21,32 +21,29 @@ import thiagodnf.rnsgaii.util.PointSolutionUtils;
 
 public class DTLZ2Runner extends AbstractRunner {
 
-	public static boolean gui = false;
-
 	public static void main(String[] args) {
-		new DTLZ2Runner().run();
-	}
-	
-	public void run() {
-
-		System.out.println("Running " + DTLZ2Runner.class.getSimpleName());
-
-		DoubleProblem problem = new DTLZ2(11, 3);
-
+		
 		List<PointSolution> referencePoints = new ArrayList<>();
 
 		referencePoints.add(PointSolutionUtils.createSolution(0.2, 0.2, 0.6));
 		referencePoints.add(PointSolutionUtils.createSolution(0.8, 0.6, 1.0));
 		
+		new DTLZ2Runner().generate(referencePoints, 1.0);
+	}
+	
+	public void generate(List<PointSolution> referencePoints, double epsilon) {
+
+		System.out.println("Running " + DTLZ2Runner.class.getSimpleName());
+
+		DoubleProblem problem = new DTLZ2(11, 3);
+
 		new SolutionListOutput(referencePoints)
 	        .setSeparator("\t")
 	        .setFunFileOutputContext(new DefaultFileOutputContext("RP.tsv"))
 	        .print();		
 
-		double epsilon = 0.001;
-
-		int populationSize = 500;
-		int maxEvaluations = 500 * populationSize;
+		int populationSize = 100;
+		int maxEvaluations = 10000 * populationSize;
 
 		CrossoverOperator<DoubleSolution> crossover = new SBXCrossover(0.9, 10.0);
 		MutationOperator<DoubleSolution> mutation = new PolynomialMutation(0.01, 20.0);

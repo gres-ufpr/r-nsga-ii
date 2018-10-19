@@ -1,10 +1,16 @@
 package thiagodnf.rnsgaii.gui;
 
 import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
@@ -29,7 +35,14 @@ public class ScatterPlot extends JFrame {
 
 	public ScatterPlot(List<DataSet> datasets, double[] xRange, double[] yRange) {
 		super("Population");
-
+		
+		ChartPanel panel = new ChartPanel(createChart(datasets, xRange, yRange));
+		
+		setContentPane(panel);
+	}
+	
+	public static JFreeChart createChart(List<DataSet> datasets, double[] xRange, double[] yRange) {
+		
 		// Create dataset
 		XYDataset dataset = createDataset(datasets);
 
@@ -44,14 +57,34 @@ public class ScatterPlot extends JFrame {
 		((NumberAxis) plot.getRangeAxis()).setRange(yRange[0], yRange[1]);
 		
 		plot.setBackgroundPaint(new Color(255, 228, 196));
-
-		// Create Panel
-		ChartPanel panel = new ChartPanel(chart);
 		
-		setContentPane(panel);
+		return chart;
+
+	}
+	
+	public static void exportAsPNG(String filename, List<DataSet> datasets, double[] xRange, double[] yRange) {
+
+		JFreeChart chart  = createChart(datasets, xRange, yRange);
+		
+		BufferedImage image = new BufferedImage(400, 400, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D g2 = image.createGraphics();
+
+		g2.setRenderingHint(JFreeChart.KEY_SUPPRESS_SHADOW_GENERATION, true);
+		Rectangle r = new Rectangle(0, 0, 400, 400);
+		chart.draw(g2, r);
+		
+		File f = new File(filename);
+
+		BufferedImage chartImage = chart.createBufferedImage(400, 400, null);
+		
+		try {
+			ImageIO.write(chartImage, "png", f);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
-	private XYDataset createDataset(List<DataSet> datasets) {
+	private static XYDataset createDataset(List<DataSet> datasets) {
 
 		XYSeriesCollection collection = new XYSeriesCollection();
 
