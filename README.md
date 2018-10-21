@@ -6,7 +6,7 @@ R-NSGA-II or Reference Point Based NSGA-II proposed by Kalyanmoy Deb et al.
 [![Build Status](https://travis-ci.org/thiagodnf/r-nsga-ii.svg?branch=master)](https://travis-ci.org/thiagodnf/r-nsga-ii)
 [![codecov](https://codecov.io/gh/thiagodnf/r-nsga-ii/branch/master/graph/badge.svg)](https://codecov.io/gh/thiagodnf/r-nsga-ii)
 
-## Based on:
+## References
 This implemention is based on the following paper:
 
 > Deb, Kalyanmoy, and J. Sundar. "Reference point based multi-objective optimization using evolutionary algorithms." In *Proceedings of the 8th annual conference on Genetic and evolutionary computation*, pp. 635-642. ACM, 2006.
