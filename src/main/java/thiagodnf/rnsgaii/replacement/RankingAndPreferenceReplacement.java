@@ -1,4 +1,4 @@
-package thiagodnf.rnsgaii.selection;
+package thiagodnf.rnsgaii.replacement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,12 +18,12 @@ import org.uma.jmetal.util.solutionattribute.impl.DominanceRanking;
 
 import com.google.common.base.Preconditions;
 
+import thiagodnf.rnsgaii.attribute.PreferenceDistance;
 import thiagodnf.rnsgaii.comparator.PreferenceDistanceComparator;
-import thiagodnf.rnsgaii.distance.PreferenceDistance;
 import thiagodnf.rnsgaii.util.EuclideanDistanceUtils;
 import thiagodnf.rnsgaii.util.PointSolutionUtils;
 
-public class RankingAndPreferenceSelection<S extends Solution<?>> extends RankingAndCrowdingSelection<S> {
+public class RankingAndPreferenceReplacement<S extends Solution<?>> extends RankingAndCrowdingSelection<S> {
 
 	private static final long serialVersionUID = 2840694213029065690L;
 
@@ -35,11 +35,11 @@ public class RankingAndPreferenceSelection<S extends Solution<?>> extends Rankin
 	
 	private double epsilon;
 	
-	public RankingAndPreferenceSelection(List<PointSolution> referencePoints, double epsilon, int solutionsToSelect) {
+	public RankingAndPreferenceReplacement(List<PointSolution> referencePoints, double epsilon, int solutionsToSelect) {
 		this(referencePoints, epsilon, solutionsToSelect, new DominanceComparator<S>());
 	}
 
-	public RankingAndPreferenceSelection(List<PointSolution> referencePoints, double epsilon, int solutionsToSelect, Comparator<S> dominanceComparator) {
+	public RankingAndPreferenceReplacement(List<PointSolution> referencePoints, double epsilon, int solutionsToSelect, Comparator<S> dominanceComparator) {
 		super(solutionsToSelect, dominanceComparator);
 
 		this.epsilon = epsilon;

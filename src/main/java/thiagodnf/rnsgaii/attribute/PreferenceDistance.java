@@ -1,4 +1,4 @@
-package thiagodnf.rnsgaii.distance;
+package thiagodnf.rnsgaii.attribute;
 
 import java.util.Collections;
 import java.util.HashMap;

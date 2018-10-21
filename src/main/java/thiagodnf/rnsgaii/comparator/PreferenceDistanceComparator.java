@@ -4,7 +4,7 @@ import java.util.Comparator;
 
 import org.uma.jmetal.solution.Solution;
 
-import thiagodnf.rnsgaii.distance.PreferenceDistance;
+import thiagodnf.rnsgaii.attribute.PreferenceDistance;
 
 public class PreferenceDistanceComparator<S extends Solution<?>> implements Comparator<S> {
 

@@ -14,7 +14,7 @@ import org.uma.jmetal.util.point.PointSolution;
 
 import com.google.common.base.Preconditions;
 
-import thiagodnf.rnsgaii.selection.RankingAndPreferenceSelection;
+import thiagodnf.rnsgaii.replacement.RankingAndPreferenceReplacement;
 
 public class RNSGAII<S extends Solution<?>> extends NSGAII<S>{
 
@@ -59,6 +59,6 @@ public class RNSGAII<S extends Solution<?>> extends NSGAII<S>{
 
 		int solutionToSelect = getMaxPopulationSize();
 		
-		return new RankingAndPreferenceSelection<S>(referencePoints, epsilon, solutionToSelect).execute(jointPopulation);
+		return new RankingAndPreferenceReplacement<S>(referencePoints, epsilon, solutionToSelect).execute(jointPopulation);
 	}
 }
