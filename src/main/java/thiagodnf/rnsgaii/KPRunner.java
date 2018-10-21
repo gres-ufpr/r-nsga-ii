@@ -39,7 +39,7 @@ public class KPRunner extends AbstractRunner{
 		
 		List<DataSet> datasets = new ArrayList<>();
 		
-		BinaryProblem problem = new KnapsackProblem("src/main/resources/kp/p100.kp");
+		BinaryProblem problem = new KnapsackProblem("src/main/resources/kp/p50.kp");
 
 		datasets.add(new DataSet("Reference Points", referencePoints));
 		
