@@ -8,6 +8,7 @@ import org.uma.jmetal.operator.MutationOperator;
 import org.uma.jmetal.operator.SelectionOperator;
 import org.uma.jmetal.problem.Problem;
 import org.uma.jmetal.solution.Solution;
+import org.uma.jmetal.util.AbstractAlgorithmRunner;
 import org.uma.jmetal.util.AlgorithmRunner;
 import org.uma.jmetal.util.evaluator.impl.SequentialSolutionListEvaluator;
 import org.uma.jmetal.util.point.PointSolution;
@@ -15,7 +16,7 @@ import org.uma.jmetal.util.point.PointSolution;
 import thiagodnf.rnsgaii.algorithm.RNSGAII;
 import thiagodnf.rnsgaii.gui.DataSet;
 
-public abstract class AbstractRunner {
+public abstract class AbstractRunner extends AbstractAlgorithmRunner {
 
 	
 	public<S extends Solution<?>> List<S> runNSGAII(

@@ -1,5 +1,6 @@
 package thiagodnf.rnsgaii;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +54,14 @@ public class ZDT1Runner extends AbstractRunner{
 	    List<DoubleSolution> populationForRNSGAII = runRNSGAII(problem, populationSize, maxEvaluations, crossover, mutation, selection, referencePoints, epsilon);
 	    
 	    datasets.add(new DataSet("R-NSGA-II w/ Epsilon=" + epsilon, PointSolutionUtils.convert(populationForRNSGAII)));
+	    
+	    String referenceParetoFront = "src/main/resources/pareto_fronts/ZDT1.pf" ;
+	    
+	    try {
+			printQualityIndicators(populationForRNSGAII, referenceParetoFront) ;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	    
 	    System.out.println("Done");
 	    

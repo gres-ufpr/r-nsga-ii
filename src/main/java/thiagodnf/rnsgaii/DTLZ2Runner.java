@@ -1,5 +1,6 @@
 package thiagodnf.rnsgaii;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class DTLZ2Runner extends AbstractRunner {
 		referencePoints.add(PointSolutionUtils.createSolution(0.2, 0.2, 0.6));
 		referencePoints.add(PointSolutionUtils.createSolution(0.8, 0.6, 1.0));
 		
-		new DTLZ2Runner().generate(referencePoints, 1.0);
+		new DTLZ2Runner().generate(referencePoints, 0.0001);
 	}
 	
 	public void generate(List<PointSolution> referencePoints, double epsilon) {
@@ -55,6 +56,14 @@ public class DTLZ2Runner extends AbstractRunner {
 	        .setSeparator("\t")
 	        .setFunFileOutputContext(new DefaultFileOutputContext("FUN_"+epsilon+".tsv"))
 	        .print();
+		
+		String referenceParetoFront = "src/main/resources/pareto_fronts/DTLZ2.3D.pf" ;
+	    
+	    try {
+			printQualityIndicators(populationForRNSGAII, referenceParetoFront) ;
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		System.out.println("Done");
 	}
