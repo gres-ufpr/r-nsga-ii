@@ -1,18 +1,39 @@
 package thiagodnf.rnsgaii.rmetric;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.uma.jmetal.util.point.PointSolution;
-import org.uma.jmetal.util.solutionattribute.Ranking;
-import org.uma.jmetal.util.solutionattribute.impl.DominanceRanking;
 
 import thiagodnf.rnsgaii.util.PointSolutionUtils;
 
 public class RMetric {
 	
-	protected static void prescreeningProcedure(List<List<PointSolution>> S) {
+	public static void main(String[] args) {
+		
+		List<List<PointSolution>> S = new LinkedList<>();
+		
+		List<PointSolution> S1 = new LinkedList<>();
+
+		S1.add(PointSolutionUtils.createSolution(0.2, 0.6));
+		S1.add(PointSolutionUtils.createSolution(0.25, 0.55));
+		S1.add(PointSolutionUtils.createSolution(0.3, 0.5));
+		S1.add(PointSolutionUtils.createSolution(0.35, 0.45));
+		S1.add(PointSolutionUtils.createSolution(0.4, 0.4));
+		S1.add(PointSolutionUtils.createSolution(0.45, 0.35));
+		S1.add(PointSolutionUtils.createSolution(0.5, 0.3));
+		S1.add(PointSolutionUtils.createSolution(0.55, 0.25));
+		S1.add(PointSolutionUtils.createSolution(0.6, 0.2));
+	
+		S.add(S1);
+		
+		S = prescreeningProcedure(S);
+		
+	}
+	
+	protected static List<List<PointSolution>> prescreeningProcedure(List<List<PointSolution>> S) {
 		
 		int L = S.size();
 		
@@ -29,42 +50,18 @@ public class RMetric {
 			for (int j = 0; j < Si.size(); j++) {
 
 				for (int k = 0; k < Sc.size(); k++) {
-//					if() {
-//						break;
-//					}
+					
+					if(PointSolutionUtils.dominates(Sc.get(k), Si.get(j))) {
+						Si = PointSolutionUtils.minus(Si, Arrays.asList(Si.get(j)));
+						break;
+					}
 				}
 			}
 		}
-//		
-//		List<PointSolution> jointPopulation = new ArrayList<>();
-//	    
-//		for(List<PointSolution> si : S) {
-//			jointPopulation.addAll(si);
-//		}
-//		
-//		List<PointSolution> Sc = SolutionListUtils.getNondominatedSolutions(jointPopulation);
-//		
 		
-//		Ranking<S> ranking = new DominanceRanking<S>() ;
-//	    return ranking.computeRanking(solutionList).getSubfront(0);
-		
+		return S;
 	}
 	
-//	protected static List<PointSolution> union(List<List<PointSolution>> S, List<PointSolution> Si) {
-//		
-//		int L = S.size();
-//		
-//		Set<PointSolution> Sc = new HashSet<>();
-//		
-//		for (int l = 0; l < L; l++) {
-//			
-//			
-//		}
-//			
-//		return null;
-//	}
-	
-
 	
 	/**
 	 * Return the worst point Zw

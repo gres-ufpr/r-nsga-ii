@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.uma.jmetal.solution.Solution;
+import org.uma.jmetal.util.comparator.DominanceComparator;
 import org.uma.jmetal.util.point.PointSolution;
 
 import com.google.common.base.Preconditions;
@@ -101,5 +102,9 @@ public class PointSolutionUtils {
 		}
 
 		return set;
+	}
+
+	public static boolean dominates(PointSolution s1, PointSolution s2) {
+		return new DominanceComparator<>().compare(s1, s2) == -1;
 	}
 }
