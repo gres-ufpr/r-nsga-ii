@@ -1,6 +1,10 @@
 package thiagodnf.rnsgaii.util;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,6 +12,7 @@ import java.util.Set;
 
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.comparator.DominanceComparator;
+import org.uma.jmetal.util.comparator.ObjectiveComparator;
 import org.uma.jmetal.util.point.PointSolution;
 
 import com.google.common.base.Preconditions;
@@ -27,6 +32,10 @@ public class PointSolutionUtils {
 		return solution;
 	}
 
+	public static <S extends Solution<?>> PointSolution convert(S s) {
+		return createSolution(s.getObjectives());
+	}
+	
 	public static <S extends Solution<?>> List<PointSolution> convert(List<S> population) {
 		
 		Preconditions.checkNotNull(population, "The population should not be null");
@@ -34,7 +43,7 @@ public class PointSolutionUtils {
 		List<PointSolution> points = new ArrayList<>();
 
 		for (S s : population) {
-			points.add(createSolution(s.getObjectives()));
+			points.add(convert(s));
 		}
 
 		return points;
@@ -129,5 +138,60 @@ public class PointSolutionUtils {
 		}
 
 		return list;
+	}
+	
+	public static List<PointSolution> readFile(Path path) throws IOException{
+		
+		List<PointSolution> solutions = new LinkedList<>();
+
+		List<String> lines = Files.readAllLines(path);
+
+		for (String line : lines) {
+
+			String[] strings = line.split("\\s+");
+
+			PointSolution sol = new PointSolution(strings.length);
+
+			for (int i = 0; i < strings.length; i++) {
+				sol.setObjective(i, Double.valueOf(strings[i]));
+			}
+
+			solutions.add(sol);
+		}
+
+		return solutions;
+	}
+	
+	
+	public static double[] getMinimumValues(List<PointSolution> solutions) {
+
+		int numberOfObjectives = solutions.get(0).getNumberOfObjectives();
+
+		double[] fmin = new double[numberOfObjectives];
+
+		for (int i = 0; i < numberOfObjectives; i++) {
+
+			Collections.sort(solutions, new ObjectiveComparator<PointSolution>(i));
+
+			fmin[i] = solutions.get(0).getObjective(i);
+		}
+
+		return fmin;
+	}
+	
+	public static double[] getMaximumValues(List<PointSolution> solutions) {
+
+		int numberOfObjectives = solutions.get(0).getNumberOfObjectives();
+
+		double[] fmax = new double[numberOfObjectives];
+
+		for (int i = 0; i < numberOfObjectives; i++) {
+
+			Collections.sort(solutions, new ObjectiveComparator<PointSolution>(i));
+
+			fmax[i] = solutions.get(solutions.size() - 1).getObjective(i);
+		}
+
+		return fmax;
 	}
 }
