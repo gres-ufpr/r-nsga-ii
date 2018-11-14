@@ -2,6 +2,7 @@ package thiagodnf.rnsgaii.util;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -79,7 +80,7 @@ public class PointSolutionUtils {
 			union.add(s.copy());
 		}
 
-		return new ArrayList<>(union);
+		return new LinkedList<>(union);
 	}
 	
 	
@@ -92,7 +93,7 @@ public class PointSolutionUtils {
 	 */
 	public static List<PointSolution> minus(List<PointSolution> A, List<PointSolution> B) {
 
-		List<PointSolution> set = new ArrayList<>();
+		List<PointSolution> set = new LinkedList<>();
 
 		for (PointSolution sl : A) {
 
@@ -106,5 +107,27 @@ public class PointSolutionUtils {
 
 	public static boolean dominates(PointSolution s1, PointSolution s2) {
 		return new DominanceComparator<>().compare(s1, s2) == -1;
+	}
+	
+	public static PointSolution shift(PointSolution s, PointSolution vector) {
+
+		PointSolution newPointSolution = s.copy();
+
+		for (int i = 0; i < newPointSolution.getNumberOfObjectives(); i++) {
+			newPointSolution.setObjective(i, s.getObjective(i) + vector.getObjective(i));
+		}
+
+		return newPointSolution;
+	}
+
+	public static List<PointSolution> copy(List<PointSolution> solutions) {
+
+		List<PointSolution> list = new LinkedList<>();
+
+		for (PointSolution solution : solutions) {
+			list.add(solution.copy());
+		}
+
+		return list;
 	}
 }
