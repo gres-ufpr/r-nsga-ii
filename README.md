@@ -38,3 +38,20 @@ The following results were found based on the following parameter settings.
 | ZDT 2  | Double Solution | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/zdt2/r-nsga-ii-0.01.png">  | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/zdt2/r-nsga-ii-0.001.png"> | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/zdt2/r-nsga-ii-1.0E-5.png"> |
 | ZDT 3  | Double Solution | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/zdt3/r-nsga-ii-0.01.png">  | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/zdt3/r-nsga-ii-0.001.png"> | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/zdt3/r-nsga-ii-1.0E-5.png"> |
 | DTLZ 2  | Double Solution | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/dtlz2/r-nsga-ii-0.01.png">  | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/dtlz2/r-nsga-ii-0.001.png"> | <img width="180px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/dtlz2/r-nsga-ii-0.0001.png"> |
+
+## R-Metric: R-HV and R-IGD
+
+This project implements and the R-HV and R-IGD quality attributes
+
+- R-HV: Hypervolume by using R-Metric
+- R-IGD: Inverted Generational Distance by using R-Metric
+
+Both of them were implemented based on the paper entitled "_R-Metric: Evaluating the Performance of Preference-Based Evolutionary Multi-Objective Optimization Using Reference Points_" by Ke Li, Member, IEEE, Kalyanmoy Deb, Fellow, IEEE, and Xin Yao, Fellow, IEEE 
+
+| Sets and Virtual solutions  | Metrics |
+| ------------- | --- |
+| <img width="280px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/r-metric/figure-8-rp-1/pareto-front.png"> | <img width="280px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/r-metric/figure-8-rp-1/metrics.png">|
+| <img width="280px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/r-metric/figure-8-rp-2/pareto-front.png"> | <img width="280px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/r-metric/figure-8-rp-2/metrics.png">|
+| <img width="280px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/r-metric/figure-8-rp-3/pareto-front.png"> | <img width="280px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/r-metric/figure-8-rp-3/metrics.png">|
+
+If you want to execute, run the _RMetricRunner_ class
