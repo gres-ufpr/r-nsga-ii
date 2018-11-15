@@ -1,4 +1,4 @@
-package thiagodnf.rnsgaii.qualityattribute.asf;
+package thiagodnf.rnsgaii.asf;
 
 import java.util.Collections;
 import java.util.List;

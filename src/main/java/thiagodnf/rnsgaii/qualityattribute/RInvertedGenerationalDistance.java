@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.uma.jmetal.qualityindicator.impl.InvertedGenerationalDistance;
-import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
 import org.uma.jmetal.util.front.util.FrontUtils;
@@ -14,7 +13,7 @@ import com.google.common.base.Preconditions;
 
 import thiagodnf.rnsgaii.rmetric.RMetric;
 
-public class RInvertedGenerationalDistance<S extends Solution<?>> extends InvertedGenerationalDistance<S> {
+public class RInvertedGenerationalDistance extends InvertedGenerationalDistance<PointSolution> {
 
 	private static final long serialVersionUID = 6292740869882877883L;
 	
@@ -27,7 +26,7 @@ public class RInvertedGenerationalDistance<S extends Solution<?>> extends Invert
 	}
 	
 	@Override
-	public Double evaluate(List<S> approximation) {
+	public Double evaluate(List<PointSolution> approximation) {
 		
 		Preconditions.checkNotNull(approximation, "The pareto front approximation is null");
 

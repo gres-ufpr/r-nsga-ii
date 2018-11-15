@@ -8,10 +8,22 @@ import java.util.List;
 import org.uma.jmetal.util.SolutionListUtils;
 import org.uma.jmetal.util.point.PointSolution;
 
-import thiagodnf.rnsgaii.qualityattribute.asf.ASF;
-import thiagodnf.rnsgaii.qualityattribute.asf.WeightedChebyshev;
+import thiagodnf.rnsgaii.asf.ASF;
+import thiagodnf.rnsgaii.asf.WeightedChebyshev;
 import thiagodnf.rnsgaii.util.PointSolutionUtils;
 
+/**
+ * Based on paper:
+ * 
+ * R-Metric: Evaluating the Performance of Preference-Based
+ * Evolutionary Multi-Objective Optimization Using Reference Points 
+ * 
+ * Ke Li, Member, IEEE, Kalyanmoy Deb, Fellow, IEEE, and Xin Yao, Fellow, IEEE"
+ * 
+ * @author thiagodnf
+ * @since 2018-11-14
+ * @version 1.0.0
+ */
 public class RMetric {
 	
 	private PointSolution zr;

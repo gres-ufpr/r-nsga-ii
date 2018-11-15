@@ -27,15 +27,19 @@ public class RMetricRunner extends AbstractRunner {
 	
 	public static Path base = Paths.get("src").resolve("main").resolve("resources").resolve("r-metric");
 	
-	public static Path example = Paths.get("example-1");
+	public static Path example = Paths.get("figure-8-rp-3");
 	
-	public static PointSolution zr = PointSolutionUtils.createSolution(0.16, 0.9);
+	public static PointSolution zr;
 	
 	public static double delta = 0.2; 
+	
+	public static RMetric rMetric;
 
 	public static void main(String[] args) throws IOException {
 		
-		RMetric rMetric = new RMetric(zr, delta);
+		zr = PointSolutionUtils.readFile(base.resolve(example).resolve("reference-point.txt")).get(0);
+		
+		rMetric = new RMetric(zr, delta);
 
 		List<List<PointSolution>> s = new LinkedList<>();
 		List<List<PointSolution>> virtualS = new LinkedList<>();
@@ -50,13 +54,8 @@ public class RMetricRunner extends AbstractRunner {
 
 		showScatterPlot(s, virtualS);
 		
-		
-//		for (int i = 0; i < virtualS.size(); i++) {
-//			printQualityIndicators(virtualS.get(i));
-//		}
-		
 		for (int i = 0; i < virtualS.size(); i++) {
-			printQualityIndicators(virtualS.get(i));
+			printQualityIndicators(i + 1, virtualS.get(i));
 		} 
 	}
 	
@@ -74,36 +73,49 @@ public class RMetricRunner extends AbstractRunner {
 			datasets.add(new DataSet("V" + (i + 1), virtualS.get(i)));
 		}
 
-		ScatterPlot.show(datasets, new double[] { 0.0, 1.0 }, new double[] { 0.0, 2.0 });
+		ScatterPlot.show(datasets, new double[] { 0.0, 2.4 }, new double[] { -0.5, 1.5 });
 	}
 	
-	
-	
-	public static <S extends Solution<?>> void printQualityIndicators(List<S> population) throws FileNotFoundException {
+	public static <S extends Solution<?>> void printQualityIndicators(int index, List<S> population) throws FileNotFoundException {
 		
-		Front referenceFront = new ArrayFront(base.resolve("nadir-point.txt").toString());
-		FrontNormalizer frontNormalizer = new FrontNormalizer(referenceFront);
-
-		Front normalizedFront = frontNormalizer.normalize(new ArrayFront(population));
 		
-		List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
-		
-		System.out.println(new RHypervolume<PointSolution>(zr, delta).evaluate(normalizedPopulation));
-	}
-	
-	public static <S extends Solution<?>> void printRIGD(List<S> population) throws FileNotFoundException {
+		// Read values 
 		
 		Front referenceFront = new ArrayFront(base.resolve(example).resolve("pareto-front.txt").toString());
 		
-		Front nadirPoint = new ArrayFront(base.resolve("nadir-point.txt").toString());
+		Front nadirPoint = new ArrayFront(base.resolve(example).resolve("nadir-point.txt").toString());
+		
 		FrontNormalizer frontNormalizer = new FrontNormalizer(nadirPoint);
 
+		
+		// Trim the pareto-front values
+		
+		List<PointSolution> paretoFront = FrontUtils.convertFrontToSolutionList(referenceFront);
+		
+		PointSolution zp = rMetric.pivotPointIdentification(paretoFront);
+		
+		List<PointSolution> trimmedParetoFront = rMetric.trimmingProcedure(zp, paretoFront);
+		
+		
+		
+		// Normalize the values
+		
 		Front normalizedFront = frontNormalizer.normalize(new ArrayFront(population));
-		Front normalizedReferenceFront = frontNormalizer.normalize(new ArrayFront(referenceFront));
+		
+		Front normalizedReferenceFront = frontNormalizer.normalize(new ArrayFront(trimmedParetoFront));
 		
 		List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
 		
-		System.out.println(new RInvertedGenerationalDistance(zr, delta, normalizedReferenceFront).evaluate(normalizedPopulation));
+		
+		StringBuffer buffer = new StringBuffer();
+		
+		buffer.append("S"+index);
+		buffer.append(" ");
+		buffer.append(new RHypervolume(zr, delta).evaluate(normalizedPopulation));
+		buffer.append(" ");
+		buffer.append(new RInvertedGenerationalDistance(zr, delta, normalizedReferenceFront).evaluate(normalizedPopulation));
+		
+		System.out.println(buffer.toString());
 	}
 	
 }

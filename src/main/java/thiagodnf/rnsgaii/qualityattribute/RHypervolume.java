@@ -3,7 +3,6 @@ package thiagodnf.rnsgaii.qualityattribute;
 import java.util.List;
 
 import org.uma.jmetal.qualityindicator.impl.hypervolume.PISAHypervolume;
-import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
 import org.uma.jmetal.util.front.util.FrontUtils;
@@ -14,7 +13,7 @@ import com.google.common.base.Preconditions;
 import thiagodnf.rnsgaii.rmetric.RMetric;
 import thiagodnf.rnsgaii.util.PointSolutionUtils;
 
-public class RHypervolume<S extends Solution<?>> extends PISAHypervolume<S> {
+public class RHypervolume extends PISAHypervolume<PointSolution> {
 
 	private static final long serialVersionUID = 6046908284567336401L;
 	
@@ -25,7 +24,7 @@ public class RHypervolume<S extends Solution<?>> extends PISAHypervolume<S> {
 	}
 	
 	@Override
-	public Double evaluate(List<S> approximation) {
+	public Double evaluate(List<PointSolution> approximation) {
 		
 		Preconditions.checkNotNull(approximation, "The pareto front approximation is null");
 
