@@ -194,4 +194,27 @@ public class PointSolutionUtils {
 
 		return fmax;
 	}
+
+	public static List<? extends Solution<?>> getNadirPoint(int numberOfObjectives, double min, double max) {
+		
+		List<PointSolution> solutions = new ArrayList<>();
+		
+		for (int i = 0; i < numberOfObjectives; i++) {
+
+			PointSolution solution = new PointSolution(numberOfObjectives);
+
+			for (int j = 0; j < numberOfObjectives; j++) {
+
+				if (i == j) {
+					solution.setObjective(j, max);
+				} else {
+					solution.setObjective(j, min);
+				}
+			}
+
+			solutions.add(solution);
+		}
+		
+		return solutions;
+	}
 }

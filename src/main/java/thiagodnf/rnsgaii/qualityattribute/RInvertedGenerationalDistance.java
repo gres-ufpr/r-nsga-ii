@@ -1,6 +1,5 @@
 package thiagodnf.rnsgaii.qualityattribute;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.uma.jmetal.qualityindicator.impl.InvertedGenerationalDistance;
@@ -19,10 +18,14 @@ public class RInvertedGenerationalDistance extends InvertedGenerationalDistance<
 	
 	protected RMetric rMetric;
 
-	public RInvertedGenerationalDistance(PointSolution zr, double delta, Front referenceParetoFront) throws FileNotFoundException{
+	public RInvertedGenerationalDistance(PointSolution zr, double delta, Front referenceParetoFront){
 		super(referenceParetoFront);
 		
 		this.rMetric = new RMetric(zr, delta);
+	}
+	
+	public Double evaluate(Front approximation) {
+		return evaluate(FrontUtils.convertFrontToSolutionList(approximation));
 	}
 	
 	@Override

@@ -111,7 +111,7 @@ public class RMetricRunner extends AbstractRunner {
 		
 		buffer.append("S"+index);
 		buffer.append(" ");
-		buffer.append(new RHypervolume(zr, delta).evaluate(normalizedPopulation));
+		buffer.append(new RHypervolume(zr, delta, normalizedFront).evaluate(normalizedPopulation));
 		buffer.append(" ");
 		buffer.append(new RInvertedGenerationalDistance(zr, delta, normalizedReferenceFront).evaluate(normalizedPopulation));
 		

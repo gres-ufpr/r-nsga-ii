@@ -19,8 +19,14 @@ public class RHypervolume extends PISAHypervolume<PointSolution> {
 	
 	protected RMetric rMetric;
 
-	public RHypervolume(PointSolution zr, double delta) {
+	public RHypervolume(PointSolution zr, double delta, Front referenceParetoFront) {
+		super(referenceParetoFront);
+		
 		this.rMetric = new RMetric(zr, delta);
+	}
+	
+	public Double evaluate(Front approximation) {
+		return evaluate(FrontUtils.convertFrontToSolutionList(approximation));
 	}
 	
 	@Override
