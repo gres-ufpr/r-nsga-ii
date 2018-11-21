@@ -2,7 +2,7 @@ package thiagodnf.rnsgaii.qualityattribute;
 
 import java.util.List;
 
-import org.uma.jmetal.qualityindicator.impl.InvertedGenerationalDistance;
+import org.uma.jmetal.qualityindicator.impl.Spread;
 import org.uma.jmetal.util.front.Front;
 import org.uma.jmetal.util.front.imp.ArrayFront;
 import org.uma.jmetal.util.front.util.FrontUtils;
@@ -12,13 +12,13 @@ import com.google.common.base.Preconditions;
 
 import thiagodnf.rnsgaii.rmetric.RMetric;
 
-public class RInvertedGenerationalDistance extends InvertedGenerationalDistance<PointSolution> {
+public class RSpread extends Spread<PointSolution> {
 
 	private static final long serialVersionUID = 6292740869882877883L;
 	
 	protected RMetric rMetric;
 
-	public RInvertedGenerationalDistance(PointSolution zr, double delta, Front referenceParetoFront){
+	public RSpread(PointSolution zr, double delta, Front referenceParetoFront){
 		super(referenceParetoFront);
 		
 		this.rMetric = new RMetric(zr, delta);
@@ -39,7 +39,7 @@ public class RInvertedGenerationalDistance extends InvertedGenerationalDistance<
 //		
 //		List<PointSolution> trimmedParetoFront = rMetric.trimmingProcedure(zp, paretoFront);
 		
-		return invertedGenerationalDistance(new ArrayFront(approximation), new ArrayFront(referenceParetoFront));
+		return spread(new ArrayFront(approximation), new ArrayFront(referenceParetoFront));
 	}
 	
 }

@@ -20,6 +20,7 @@ import thiagodnf.rnsgaii.gui.DataSet;
 import thiagodnf.rnsgaii.gui.ScatterPlot;
 import thiagodnf.rnsgaii.qualityattribute.RHypervolume;
 import thiagodnf.rnsgaii.qualityattribute.RInvertedGenerationalDistance;
+import thiagodnf.rnsgaii.qualityattribute.RSpread;
 import thiagodnf.rnsgaii.rmetric.RMetric;
 import thiagodnf.rnsgaii.util.PointSolutionUtils;
 
@@ -27,7 +28,7 @@ public class RMetricRunner extends AbstractRunner {
 	
 	public static Path base = Paths.get("src").resolve("main").resolve("resources").resolve("r-metric");
 	
-	public static Path example = Paths.get("figure-8-rp-3");
+	public static Path example = Paths.get("figure-8-rp-2");
 	
 	public static PointSolution zr;
 	
@@ -73,21 +74,19 @@ public class RMetricRunner extends AbstractRunner {
 			datasets.add(new DataSet("V" + (i + 1), virtualS.get(i)));
 		}
 
-		ScatterPlot.show(datasets, new double[] { 0.0, 2.4 }, new double[] { -0.5, 1.5 });
+		ScatterPlot.show(datasets, new double[] { 0.0, 1.2 }, new double[] { -0.5, 1.25 });
 	}
 	
 	public static <S extends Solution<?>> void printQualityIndicators(int index, List<S> population) throws FileNotFoundException {
 		
-		
 		// Read values 
 		
 		Front referenceFront = new ArrayFront(base.resolve(example).resolve("pareto-front.txt").toString());
-		
+		Front populationFront = new ArrayFront(population);
 		Front nadirPoint = new ArrayFront(base.resolve(example).resolve("nadir-point.txt").toString());
 		
 		FrontNormalizer frontNormalizer = new FrontNormalizer(nadirPoint);
 
-		
 		// Trim the pareto-front values
 		
 		List<PointSolution> paretoFront = FrontUtils.convertFrontToSolutionList(referenceFront);
@@ -96,24 +95,20 @@ public class RMetricRunner extends AbstractRunner {
 		
 		List<PointSolution> trimmedParetoFront = rMetric.trimmingProcedure(zp, paretoFront);
 		
-		
-		
 		// Normalize the values
 		
-		Front normalizedFront = frontNormalizer.normalize(new ArrayFront(population));
-		
-		Front normalizedReferenceFront = frontNormalizer.normalize(new ArrayFront(trimmedParetoFront));
-		
-		List<PointSolution> normalizedPopulation = FrontUtils.convertFrontToSolutionList(normalizedFront);
-		
+		Front normalizedPopulationFront= frontNormalizer.normalize(populationFront);
+		Front normalizedParetoFront = frontNormalizer.normalize(new ArrayFront(trimmedParetoFront));
 		
 		StringBuffer buffer = new StringBuffer();
 		
 		buffer.append("S"+index);
 		buffer.append(" ");
-		buffer.append(new RHypervolume(zr, delta, normalizedFront).evaluate(normalizedPopulation));
+		buffer.append(new RHypervolume(zr, delta, normalizedParetoFront).evaluate(normalizedPopulationFront));
 		buffer.append(" ");
-		buffer.append(new RInvertedGenerationalDistance(zr, delta, normalizedReferenceFront).evaluate(normalizedPopulation));
+		buffer.append(new RInvertedGenerationalDistance(zr, delta, normalizedParetoFront).evaluate(normalizedPopulationFront));
+		buffer.append(" ");
+		buffer.append(new RSpread(zr, delta, normalizedParetoFront).evaluate(normalizedPopulationFront));
 		
 		System.out.println(buffer.toString());
 	}
