@@ -45,17 +45,17 @@ public class ZDT1Runner extends AbstractRunner{
 		datasets.add(new DataSet("Reference Points", referencePoints));
 		
 		int populationSize = 100;
-		int maxEvaluations = 10000 * populationSize;
+		int maxEvaluations = 500 * populationSize;
 		
 		CrossoverOperator<DoubleSolution> crossover = new SBXCrossover(0.9, 10.0);
-	    MutationOperator<DoubleSolution> mutation = new PolynomialMutation(0.01, 20.0);
+	    MutationOperator<DoubleSolution> mutation = new PolynomialMutation(0.005, 20.0);
 	    SelectionOperator<List<DoubleSolution>, DoubleSolution> selection = new BinaryTournamentSelection<DoubleSolution>(new PreferenceDistanceComparator<>()) ;
 	    
 	    List<DoubleSolution> populationForRNSGAII = runRNSGAII(problem, populationSize, maxEvaluations, crossover, mutation, selection, referencePoints, epsilon);
 	    
 	    datasets.add(new DataSet("R-NSGA-II w/ Epsilon=" + epsilon, PointSolutionUtils.convert(populationForRNSGAII)));
 	    
-	    String referenceParetoFront = "src/main/resources/pareto_fronts/ZDT1.pf" ;
+	    String referenceParetoFront = "src/main/resources/real-pareto-fronts/ZDT1.pf" ;
 	    
 	    try {
 			printQualityIndicators(populationForRNSGAII, referenceParetoFront) ;

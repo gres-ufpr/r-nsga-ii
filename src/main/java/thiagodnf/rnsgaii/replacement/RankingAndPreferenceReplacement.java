@@ -140,16 +140,25 @@ public class RankingAndPreferenceReplacement<S extends Solution<?>> extends Rank
 
 				PointSolution q = PointSolutionUtils.createSolution(temporalList.get(i).getObjectives());
 
-				double sum = EuclideanDistanceUtils.calculate(p, q, fmin, fmax);
+				double sum = 0.0;
 
+				for (int j = 0; j < q.getNumberOfObjectives(); j++) {
+					sum += (Math.abs(p.getObjective(j) - q.getObjective(j)) / (fmax[j] - fmin[j]));
+				}
+				
 				if (sum <= epsilon) {
 					group.add(temporalList.get(i));
 				}
 			}
 
 			for (S s : group) {
-				s.setAttribute(PreferenceDistance.KEY, Integer.MAX_VALUE);
+				
+				int value = (int) s.getAttribute(PreferenceDistance.KEY);
+				
+				s.setAttribute(PreferenceDistance.KEY, value+population.size());
+				
 				nextPopulation.add(s);
+				
 				temporalList.remove(s);
 			}
 		}

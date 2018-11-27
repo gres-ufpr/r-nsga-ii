@@ -25,10 +25,10 @@ public class KPRunner extends AbstractRunner{
 		
 		List<PointSolution> referencePoints = new ArrayList<>();
 
-		referencePoints.add(PointSolutionUtils.createSolution(0.5, 0.5));
-		//referencePoints.add(PointSolutionUtils.createSolution(0.1, 0.8));
+		referencePoints.add(PointSolutionUtils.createSolution(1.0, 0.1));
+		referencePoints.add(PointSolutionUtils.createSolution(0.1, 0.9));
 		
-		List<DataSet> datasets = new KPRunner().run(referencePoints, 0.1);
+		List<DataSet> datasets = new KPRunner().run(referencePoints, 0.000001);
 		
 		ScatterPlot.show(datasets, new double[] {-0.1,1.1}, new double[] {-0.1, 1.1});
 	}
@@ -43,11 +43,11 @@ public class KPRunner extends AbstractRunner{
 
 		datasets.add(new DataSet("Reference Points", referencePoints));
 		
-		int populationSize = 10;
-		int maxEvaluations = 1000000 * populationSize;
+		int populationSize = 100;
+		int maxEvaluations = 500 * populationSize;
 		
 		CrossoverOperator<BinarySolution> crossover = new SinglePointCrossover(0.9);
-	    MutationOperator<BinarySolution> mutation = new BitFlipMutation(0.001);
+	    MutationOperator<BinarySolution> mutation = new BitFlipMutation(0.005);
 	    SelectionOperator<List<BinarySolution>, BinarySolution> selection = new BinaryTournamentSelection<BinarySolution>(new PreferenceDistanceComparator<>()) ;
 	    
 	    List<BinarySolution> populationForRNSGAII = runRNSGAII(problem, populationSize, maxEvaluations, crossover, mutation, selection, referencePoints, epsilon);
