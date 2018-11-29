@@ -65,7 +65,7 @@ public class RMetric {
 		return S;
 	}
 	
-	protected List<PointSolution> prescreeningProcedure(List<PointSolution> S) {
+	public List<PointSolution> prescreeningProcedure(List<PointSolution> S) {
 		return PointSolutionUtils.copy(SolutionListUtils.getNondominatedSolutions(S));
 	}
 	
