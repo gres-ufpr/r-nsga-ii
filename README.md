@@ -30,7 +30,7 @@ Then add a dependency into tag of your pom.xml
 <dependency>
     <groupId>thiagodnf.rnsgaii</groupId>
     <artifactId>rnsgaii</artifactId>
-    <version>2.0.0</version>
+    <version>2.1.0</version>
 </dependency>
 ```
 
