@@ -18,7 +18,7 @@ This project uses GitHub as a Maven Repository. Then you have just add the follo
 ```xml
 <repositories>
     <repository>
-        <id>r-nsga-ii-github</id>
+        <id>rnsgaii-github</id>
         <url>https://github.com/thiagodnf/r-nsga-ii/raw/master/mvn-repo/releases</url>
     </repository>
 </repositories>
@@ -29,8 +29,8 @@ Then add a dependency into tag of your pom.xml
 ```xml
 <dependency>
     <groupId>thiagodnf.rnsgaii</groupId>
-    <artifactId>r-nsga-ii</artifactId>
-    <version>1.0.0</version>
+    <artifactId>rnsgaii</artifactId>
+    <version>2.0.0</version>
 </dependency>
 ```
 
