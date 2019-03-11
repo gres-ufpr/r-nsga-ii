@@ -11,6 +11,30 @@ This implemention is based on the following paper:
 
 > Deb, Kalyanmoy, and J. Sundar. "Reference point based multi-objective optimization using evolutionary algorithms." In *Proceedings of the 8th annual conference on Genetic and evolutionary computation*, pp. 635-642. ACM, 2006.
 
+## How to install
+
+This project uses GitHub as a Maven Repository. Then you have just add the following section to your repositories tag in pom.xml
+
+```xml
+<repositories>
+    <repository>
+        <id>r-nsga-ii-github</id>
+        <url>https://github.com/thiagodnf/r-nsga-ii/raw/master/releases</url>
+    </repository>
+</repositories>
+```
+
+Then add a dependency into tag of your pom.xml
+
+```xml
+<dependency>
+    <groupId>thiagodnf.rnsgaii</groupId>
+    <artifactId>r-nsga-ii</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+
 ## Simulation Results
 
 The following results were found based on the following parameter settings.
