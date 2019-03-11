@@ -19,7 +19,7 @@ This project uses GitHub as a Maven Repository. Then you have just add the follo
 <repositories>
     <repository>
         <id>rnsgaii-github</id>
-        <url>https://github.com/thiagodnf/r-nsga-ii/raw/master/mvn-repo/releases</url>
+        <url>https://github.com/thiagodnf/rnsgaii/raw/master/mvn-repo/releases</url>
     </repository>
 </repositories>
 ```
