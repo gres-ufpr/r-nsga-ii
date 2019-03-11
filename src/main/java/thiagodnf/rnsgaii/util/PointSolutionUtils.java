@@ -1,14 +1,17 @@
 package thiagodnf.rnsgaii.util;
 
+import static org.jvalidation.Assertive.require;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.uma.jmetal.solution.Solution;
 import org.uma.jmetal.util.comparator.DominanceComparator;
@@ -19,17 +22,21 @@ import com.google.common.base.Preconditions;
 
 public class PointSolutionUtils {
 
-	public static PointSolution createSolution(double... objectives) {
+	public static PointSolution createSolution(List<Double> objectives) {
+		
+		require(objectives).isList().notNull().notEmpty();
+		
+		PointSolution solution = new PointSolution(objectives.size());
 
-		Preconditions.checkArgument(objectives.length > 0, "the objective array should be > 0");
-
-		PointSolution solution = new PointSolution(objectives.length);
-
-		for (int i = 0; i < objectives.length; i++) {
-			solution.setObjective(i, objectives[i]);
+		for (int i = 0; i < objectives.size(); i++) {
+			solution.setObjective(i, objectives.get(i));
 		}
 
 		return solution;
+	}
+	
+	public static PointSolution createSolution(double... objectives) {
+		return createSolution(Arrays.stream(objectives).boxed().collect(Collectors.toList()));
 	}
 
 	public static <S extends Solution<?>> PointSolution convert(S s) {
