@@ -3,8 +3,8 @@
 R-NSGA-II or Reference Point Based NSGA-II proposed by Kalyanmoy Deb et al.
 
 ## Status
-[![Build Status](https://travis-ci.org/thiagodnf/r-nsga-ii.svg?branch=master)](https://travis-ci.org/thiagodnf/r-nsga-ii)
-[![codecov](https://codecov.io/gh/thiagodnf/r-nsga-ii/branch/master/graph/badge.svg)](https://codecov.io/gh/thiagodnf/r-nsga-ii)
+[![Build Status](https://travis-ci.org/gres-ufpr/r-nsga-ii.svg?branch=master)](https://travis-ci.org/gres-ufpr/r-nsga-ii)
+[![codecov](https://codecov.io/gh/gres-ufpr/r-nsga-ii/branch/master/graph/badge.svg)](https://codecov.io/gh/gres-ufpr/r-nsga-ii)
 
 ## References
 This implemention is based on the following paper:
