@@ -84,3 +84,20 @@ Both of them were implemented based on the paper entitled "_R-Metric: Evaluating
 | <img width="280px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/r-metric/figure-8-rp-3/pareto-front.png"> | <img width="280px" src="https://raw.githubusercontent.com/thiagodnf/r-nsga-ii/master/src/main/resources/r-metric/figure-8-rp-3/metrics.png">|
 
 If you want to execute, run the _RMetricRunner_ class
+
+## For Developers
+	
+For generating a distributable version, run:
+	
+```sh
+mvn deploy
+```
+
+## Contributions
+
+Feel free to fork this project, work on it and then make a pull request.
+
+## Questions or Suggestions
+
+Feel free to create <a href="https://github.com/gres-ufpr/r-nsga-ii/issues">issues</a> here as you need
+
