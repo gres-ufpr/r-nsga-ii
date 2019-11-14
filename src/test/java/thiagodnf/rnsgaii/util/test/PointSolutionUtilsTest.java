@@ -11,7 +11,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.uma.jmetal.util.point.PointSolution;
 
-import thiagodnf.rnsgaii.util.PointSolutionUtils;
+import ufpr.gres.rnsgaii.util.PointSolutionUtils;
 
 public class PointSolutionUtilsTest {
 

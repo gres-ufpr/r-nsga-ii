@@ -9,8 +9,8 @@ import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.Test;
 import org.uma.jmetal.util.point.PointSolution;
 
-import thiagodnf.rnsgaii.util.EuclideanDistanceUtils;
-import thiagodnf.rnsgaii.util.PointSolutionUtils;
+import ufpr.gres.rnsgaii.util.EuclideanDistanceUtils;
+import ufpr.gres.rnsgaii.util.PointSolutionUtils;
 
 public class EuclideanDistanceUtilsTest {
 
