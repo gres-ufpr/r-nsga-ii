@@ -18,8 +18,14 @@ This project uses GitHub as a Maven Repository. Then you have just add the follo
 ```xml
 <repositories>
     <repository>
-        <id>rnsgaii-github</id>
-        <url>https://github.com/thiagodnf/rnsgaii/raw/master/mvn-repo/releases</url>
+        <id>mvn-repo</id>
+        <url>https://github.com/gres-ufpr/mvn-repo/raw/master/releases</url>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+        <snapshots>
+            <enabled>true</enabled>
+        </snapshots>
     </repository>
 </repositories>
 ```
@@ -28,12 +34,11 @@ Then add a dependency into tag of your pom.xml
 
 ```xml
 <dependency>
-    <groupId>thiagodnf.rnsgaii</groupId>
-    <artifactId>rnsgaii</artifactId>
-    <version>2.1.0</version>
+    <groupId>ufpr.gres</groupId>
+    <artifactId>r-nsga-ii</artifactId>
+    <version>3.0.0</version>
 </dependency>
 ```
-
 
 ## Simulation Results
 
