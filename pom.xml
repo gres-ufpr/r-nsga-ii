@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>ufpr.gres</groupId>
 	<artifactId>r-nsga-ii</artifactId>
-	<version>3.0.0</version>
+	<version>3.0.1</version>
 	<name>r-nsga-ii</name>
 	<packaging>jar</packaging>
 	<description>R-NSGA-II or Reference Point Based NSGA-II proposed by Kalyanmoy Deb et al.</description>
@@ -58,11 +58,6 @@
 		    <artifactId>junit-jupiter-engine</artifactId>
 		    <version>5.1.0</version>
 		    <scope>test</scope>
-		</dependency>
-		<dependency>
-		    <groupId>org.jvalidation</groupId>
-		    <artifactId>jvalidation</artifactId>
-		    <version>1.4.0</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -186,10 +181,4 @@
             <url>file://${project.build.directory}/mvn-repo</url>
         </repository>
     </distributionManagement>
-    <repositories>
-	    <repository>
-	        <id>jvalidation-github</id>
-	        <url>https://github.com/jvalidation/mvn-repo/raw/master/releases</url>
-	    </repository>
-	</repositories>
 </project>

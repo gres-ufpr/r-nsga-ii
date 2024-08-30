@@ -1,6 +1,5 @@
 package ufpr.gres.rnsgaii.util;
 
-import static org.jvalidation.Assertive.require;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,8 +22,6 @@ import com.google.common.base.Preconditions;
 public class PointSolutionUtils {
 
 	public static PointSolution createSolution(List<Double> objectives) {
-		
-		require(objectives).isList().notNull().notEmpty();
 		
 		PointSolution solution = new PointSolution(objectives.size());
 
